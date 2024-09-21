@@ -2,24 +2,36 @@
 
 A simple API built using Express.js.
 
-## Table of Contents
+## Installation
 
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Project](#running-the-project)
-- [Development](#development)
-- [Scripts](#scripts)
-- [Project Structure](#project-structure)
+1. Clone the repository:
 
-## Prerequisites
+   ```bash
+   git clone https://github.com/your-username/standin-api.git
+   ```
 
-Ensure you have the following installed on your local development machine:
+2.	Navigate to the project directory:
 
-- **Node.js** (version >= 12)
-- **npm** (version >= 6)
+	```bash
+	cd standin-api
+	```
 
-To check if you have them installed, run the following commands:
+3.	Install the project dependencies:
 
-```bash
-node -v
-npm -v
+	```bash
+	npm install
+	```
+
+## Running the Project
+
+- To start the API server, run:
+
+	```bash
+	npm start
+	```
+
+- For development with automatic reloading (using nodemon), run:
+
+	```bash
+	npm run dev
+	```
