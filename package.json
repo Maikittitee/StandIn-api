@@ -1,8 +1,11 @@
 {
   "scripts": {
     "start": "npm run build && node --watch dist/server.js",
+    "dev": "nodemon src/app.js",
     "build": "npx tsc"
   },
+  "author": "ktunchar",
+  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
