@@ -25,4 +25,5 @@ export const shoppingTaskSchema = new Schema({
 });
 
 
-export default model('ShoppingTask', shoppingTaskSchema);
+export const ShoppingTask = model('ShoppingTask', shoppingTaskSchema);
+export default ShoppingTask

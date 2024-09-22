@@ -25,4 +25,5 @@ export const addressSchema = new Schema({
 });
 
 // https://en.wikipedia.org/wiki/Thai_addressing_system
-export default model('Address', addressSchema);
+export const Address = model('Address', addressSchema);
+export default Address
