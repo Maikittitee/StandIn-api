@@ -1,35 +1,33 @@
 import { Schema, model } from 'mongoose';
-import { Image, IImage } from './index';
 
-export interface IUser {
-    name: string;
-    email: string;
-    password: string;
-    image?: string;
-    address?: string;
-    card?: string;
+
+export enum Role {
+    Admin,
+    Customer,
+    Stander,
 }
 
-export const userSchema = new Schema<IUser>({
-    name: { 
-        type: String, 
-        required: true 
-    },
-    email: { 
+export const userSchema = new Schema({
+    username: { 
         type: String, 
         required: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
-    image: {
-        type: Image
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    address: {
-        type: String
-    }
+    role: {
+        type: Number,
+        required: true,
+        enum: Role,
+    },
 });
 
-export default model<IUser>('User', userSchema);
+
+export default model('User', userSchema);
