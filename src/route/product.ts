@@ -1,5 +1,5 @@
-import { Router, Request, Response } from "express";
-import Product from "../model/product";
+import { Router, Request, Response } from 'express';
+import Product from 'model/product.js';
 
 const router = Router();
 

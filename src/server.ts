@@ -1,23 +1,22 @@
+import 'dotenv/config';
 import express from 'express';
-import mongoose from "mongoose";
-import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import assert from 'node:assert';
-import router from './route';
+import router from 'route/index.js';
 
 
-dotenv.config();
-
-const PORT = process.env.PORT || 8080;
 const uri = process.env.ATLAS_URI;
+const PORT = process.env.PORT;
 
-assert(uri, "ATLAS_URI is required");
+assert(uri);
+assert(PORT);
 
+
+mongoose.connect(uri);
 
 const app = express()
     .use(cors())
     .use(express.json())
-    .use(router);
-
-mongoose.connect(uri);
-app.listen(PORT);
+    .use(router)
+    .listen(PORT);
