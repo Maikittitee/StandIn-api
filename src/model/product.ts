@@ -1,25 +1,69 @@
 import { Schema, model } from 'mongoose';
-import { Image, IImage } from './index';
 
-export interface IProduct {
-    name: string;
-    image: string;
-    price: number;
-}
 
-export const productSchema = new Schema<IProduct>({
+const Category = [
+    'Clothing',
+    'Beauty',
+    'Electronics',
+    'Home',
+    'Stationery',
+    'Toys & Games',
+];
+
+
+const brandSchema = new Schema({
     name: { 
         type: String, 
-        required: true 
+        required: true,
     },
-    image: { 
+    logo: { 
+        type: String,     
+    },
+});
+
+
+const subproductSchema = new Schema({
+    images: [String],
+    available: {
+        type: Boolean,
+        required: true,
+    },
+    size: { 
         type: String, 
-        required: true 
+    },
+    color: { 
+        type: String, 
+    },
+});
+
+
+export const productSchema = new Schema({
+    name: { 
+        type: String, 
+        required: true,
+    },
+    brand: {
+        type: Schema.Types.ObjectId,
+        ref: 'Brand',
+    },
+    store: {
+        type: Schema.Types.ObjectId,
+        ref: 'Store',
+    },
+    category: { 
+        type: String, 
+        enum: Category,
+    },
+    subproduct: {
+        type: [subproductSchema],
     },
     price: {
         type: Number,
-        required: true
-    }
+        required: true,
+    },
 });
 
-export default model<IProduct>('Product', productSchema);
+
+export const Brand = model('Brand', brandSchema);
+export const Product = model('Product', productSchema);
+export default Product;

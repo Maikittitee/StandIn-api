@@ -7,6 +7,10 @@ export const itemSchema = new Schema({
         ref: 'Product',
         required: true,
     },
+    subproduct: {
+        type: Number,
+        required: true,
+    },
     quantity: { 
         type: Number, 
         min: 1,
