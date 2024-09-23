@@ -1,41 +1,80 @@
 import { Schema, model } from 'mongoose';
-import product, { IProduct } from './product';
 
-export interface ITask {
-    product: IProduct;
-    amount: number;
+
+export enum OrderStatus {
+    Pending,
+    Cancelled,
+    Accepted,
+    Rejected,
+    Paid,
+    Completed,
 }
-export const TaskSchema = new Schema<ITask>({
-    product: { 
-        type: product, 
-        required: true 
-    },
-    amount: { 
+export enum TrackStatus {
+    On_the_way,
+    Arrived_at_store,
+    Item_recieved,
+    Package_sent,
+    In_transit,
+}
+export enum TaskType {
+    Queueing,
+    Shopping,
+}
+
+
+const reviewSchema = new Schema({
+    rating: { 
         type: Number, 
-        required: true 
+        min: 1,
+        max: 5,
+        required: true,
+    },
+    comment: {
+        type: String,
+    },
+    datetime: { 
+        type: Date, 
+        default: Date.now,
     },
 });
-export const Task = model<ITask>('Task', TaskSchema);
 
 
-export interface IOrder {
-    name: string;
-    image: string;
-    price: number;
-}
-export const orderSchema = new Schema<IOrder>({
-    name: { 
-        type: String, 
-        required: true 
+const orderSchema = new Schema({
+    task: {
+        type: {
+            type: Number,
+            enum: TaskType,
+            required: true,
+        },
+        value: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
     },
-    image: { 
-        type: String, 
-        required: true 
-    },
-    price: {
+    orderStatus: {
         type: Number,
-        required: true
-    }
+        enum: OrderStatus,
+        default: OrderStatus.Pending,
+    },
+    trackStatus: [{
+        datetime: Date,
+        status: {
+            type: Number,
+            enum: TrackStatus,
+        },
+    }],
+    // stander: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Stander',
+    // },
+    // customer: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Customer',
+    //     required: true,
+    // },
+    review: reviewSchema,
 });
 
-export default model<IOrder>('Order', orderSchema);
+
+export const Order = model('Order', orderSchema);
+export default Order;

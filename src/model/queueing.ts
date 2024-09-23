@@ -1,6 +1,13 @@
 import { Schema, model } from 'mongoose';
 
 
+export enum PackageSize {
+    Small,
+    Medium,
+    Laege,
+}
+
+
 export const queueTaskSchema = new Schema({
     location: { 
         type: String, 
@@ -12,6 +19,7 @@ export const queueTaskSchema = new Schema({
     },
     size: { 
         type: Number, 
+        enum: PackageSize,
         required: true,
     },
     detail: { 
