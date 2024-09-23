@@ -12,4 +12,14 @@ router.get('/', async (req, res, next) => {
 	  }
 });
 
+router.post('/', async (req, res, next) => {
+	try {
+		console.log(req.body)
+		const user = await User.create(await req.body)	
+		res.json(user);
+	} catch(err) {
+		next(err);
+	}
+})
+
 module.exports = router;

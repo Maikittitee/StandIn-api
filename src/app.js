@@ -10,6 +10,8 @@ mongoose.connect(process.env.MONGO_URI)
 		.then(() => console.log("Mongo connected"))
 		.catch((error) => console.error(error))
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', users)
 
