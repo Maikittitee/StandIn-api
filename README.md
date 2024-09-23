@@ -35,3 +35,10 @@ A simple API built using Express.js.
 	```bash
 	npm run dev
 	```
+
+## Testing the Project
+
+- Test  project using module in `src/test/`
+	```bash
+	npm test <filename.js>
+	```

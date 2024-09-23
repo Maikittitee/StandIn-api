@@ -2,9 +2,10 @@
   "author": "ktunchar",
   "type": "module",
   "scripts": {
+    "build": "npx tsc",
     "start": "npm run build && node --watch dist/server.js",
     "dev": "nodemon src/app.js",
-    "build": "npx tsc"
+    "test": "npm run build && cd dist/test && node"
   },
   "dependencies": {
     "cors": "^2.8.5",
