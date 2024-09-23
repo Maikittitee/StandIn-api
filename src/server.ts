@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import assert from 'node:assert';
-import router from 'route/index.js';
+import router from './route/index.js';
 
 
 const uri = process.env.ATLAS_URI;
