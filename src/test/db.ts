@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
 
-import { Building, Store } from 'model/address.js';
-import Order, { OrderStatus, TrackStatus, TaskType } from 'model/order.js';
-import { Product, Brand } from 'model/product.js';
-import QueueTask, { PackageSize } from 'model/queueing.js';
-import ShoppingTask from 'model/shopping.js';
+import { Building, Store } from '../model/address.js';
+import Order, { OrderStatus, TrackStatus, TaskType } from '../model/order.js';
+import { Product, Brand } from '../model/product.js';
+import QueueTask, { PackageSize } from '../model/queueing.js';
+import ShoppingTask from '../model/shopping.js';
 
 // @ts-expect-error
 mongoose.connect(process.env.ATLAS_URI);
@@ -37,7 +37,7 @@ const best_guitar = new Product({
     name: 'TMC-035EQ',
     brand: crafter._id,
     store: music_collection._id,
-    category: undefined,
+    // category: undefined,
     subproduct: [{
         available: true,
         image: [
@@ -62,7 +62,20 @@ const guitar_order = new Order({
         value: guitar_task._id,
     },
     orderStatus: OrderStatus.Paid,
-    trackStatus: TrackStatus.In_transit,
+    trackStatus: [
+        {
+            dateTime: Date.now(),
+            status: TrackStatus.On_the_way
+        },
+        {
+            dateTime: Date.now(),
+            status: TrackStatus.Arrived_at_store
+        },
+        {
+            dateTime: Date.now(),
+            status: TrackStatus.Item_recieved
+        },
+    ],
     // stander: '',
     review: {
         rating: 4,
@@ -83,18 +96,33 @@ const queue_order = new Order({
         value: queue_task._id,
     },
     orderStatus: OrderStatus.Pending,
-    trackStatus: undefined,
+    // trackStatus: undefined,
     // stander: '',
-    review: undefined,
+    // review: undefined,
 });
 
+console.log('save');
 
 siam_paragon.save();
+console.log('save1');
+
 music_collection.save();
+console.log('save2');
+
 crafter.save();
+console.log('save3');
+
 best_guitar.save();
+console.log('save4');
+
 guitar_task.save();
+console.log('save5');
+
 guitar_order.save();
+console.log('save6');
 
 queue_task.save();
+console.log('save7');
+
 queue_order.save();
+console.log('save8');
