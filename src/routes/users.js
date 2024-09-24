@@ -12,10 +12,37 @@ router.get('/', async (req, res, next) => {
 	  }
 });
 
+router.get('/:id', async (req, res, next) => {
+	try {
+		const user = await User.findById(req.params.id);
+		res.json(user);
+	  } catch (err) {
+		next(err);
+	  }
+});
+
 router.post('/', async (req, res, next) => {
 	try {
-		console.log(req.body)
-		const user = await User.create(await req.body)	
+		const user = await User.create(req.body)	
+		return (res.json(user));
+	} catch(err) {
+		next(err);
+	}
+})
+
+router.put('/:id', async (req, res, next) => {
+	try {
+		await User.findByIdAndUpdate(req.params.id, req.body);
+		const user = User.findById(req.params.id);
+		return (res.json(user));
+	} catch(err) {
+		next(err);
+	}
+})
+
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const user = await User.findByIdAndDelete(req.params.id);	
 		res.json(user);
 	} catch(err) {
 		next(err);
