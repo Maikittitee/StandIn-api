@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const mongoose = require('mongoose')
 const users = require('./routes/users')
+const auth = require('./routes/auth')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI)
@@ -13,7 +14,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/users', users)
+app.use('/users', users);
+app.use('/auth', auth);
 
 app.get('/', (req, res) => {
   res.send('Hello, Stand In!')

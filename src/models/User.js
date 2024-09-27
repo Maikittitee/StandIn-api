@@ -4,10 +4,12 @@ const UserSchema = new mongoose.Schema({
 	fullname : {
 		type: String, 
 		required: true,
+
 	},
 	username: {
 		type: String, 
 		required: true,
+		unique: true,
 	},
 	password: {
 		type: String, 
@@ -16,6 +18,7 @@ const UserSchema = new mongoose.Schema({
 	email: {
 		type: String, 
 		required: true,
+		unique: true,
 	},
 	update_at: {
 		type: Date, 
