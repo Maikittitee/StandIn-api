@@ -13,7 +13,7 @@ assert(uri);
 assert(PORT);
 
 
-mongoose.connect(uri);
+await mongoose.connect(uri);
 
 const app = express()
     .use(cors())
