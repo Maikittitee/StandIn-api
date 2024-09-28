@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 
 
-// https://en.wikipedia.org/wiki/Thai_addressing_system
 export const addressSchema = new Schema({
     country: { 
         type: String, 
@@ -36,7 +35,6 @@ export const addressSchema = new Schema({
 const buildingSchema = new Schema({
     name: {
         type: String,
-        required: true,
     },
     address: {
         type: addressSchema,
@@ -57,6 +55,8 @@ const storeSchema = new Schema({
     },
 });
 
+
+// https://en.wikipedia.org/wiki/Thai_addressing_system
 
 export const Store = model('Store', storeSchema);
 export const Building = model('Building', buildingSchema);

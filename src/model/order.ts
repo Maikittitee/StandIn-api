@@ -16,10 +16,6 @@ export enum TrackStatus {
     Package_sent,
     In_transit,
 }
-export enum TaskType {
-    Queueing,
-    Shopping,
-}
 
 
 const reviewSchema = new Schema({
@@ -32,49 +28,53 @@ const reviewSchema = new Schema({
     comment: {
         type: String,
     },
-    datetime: { 
-        type: Date, 
-        default: Date.now,
-    },
+}, {
+    _id: false,
+    timestamps: true,
 });
 
 
 const orderSchema = new Schema({
     task: {
-        type: {
-            type: Number,
-            enum: TaskType,
-            required: true,
-        },
-        value: {
-            type: Schema.Types.ObjectId,
-            required: true,
-        },
+        type: Schema.Types.ObjectId,
+        ref: 'Task',
+        required: true,
     },
     orderStatus: {
         type: Number,
         enum: OrderStatus,
         default: OrderStatus.Pending,
+        required: true,
     },
     trackStatus: [{
-        datetime: Date,
+        datetime: {
+            type: Date,
+            required: true,
+        },
         status: {
             type: Number,
             enum: TrackStatus,
+            required: true,
         },
     }],
-    // stander: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Stander',
-    // },
+    review: reviewSchema,
     // customer: {
     //     type: Schema.Types.ObjectId,
     //     ref: 'Customer',
     //     required: true,
     // },
-    review: reviewSchema,
+    // stander: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Stander',
+    //     required: true,
+    // },
+}, {
+    timestamps: true,
 });
 
 
+// https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design
+// https://www.mongodb.com/docs/manual/applications/data-models-relationships/
+// https://stackoverflow.com/questions/46406380/is-two-way-referencing-more-efficient-in-mongo-for-a-1-to-n-relationship
+
 export const Order = model('Order', orderSchema);
-export default Order;

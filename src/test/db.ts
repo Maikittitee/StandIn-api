@@ -2,10 +2,11 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 
 import { Building, Store } from '../model/address.js';
-import Order, { OrderStatus, TrackStatus, TaskType } from '../model/order.js';
+import { Order, OrderStatus } from '../model/order.js';
+import { TrackStatus, TaskType } from '../model/commission.js';
 import { Product, Brand } from '../model/product.js';
-import QueueTask, { PackageSize } from '../model/queueing.js';
-import ShoppingTask from '../model/shopping.js';
+import { QueueingTask, PackageSize } from '../model/queueing.js';
+import { ShoppingTask } from '../model/shopping.js';
 
 // @ts-expect-error
 mongoose.connect(process.env.ATLAS_URI);
@@ -39,12 +40,12 @@ const best_guitar = new Product({
     store: music_collection._id,
     // category: undefined,
     subproduct: [{
+        price: 19600,
         available: true,
         image: [
             'https://images.squarespace-cdn.com/content/v1/549721b4e4b08be712d559be/1446476048437-8SI3ZPVYISJLFZW4VQ80/TM-1.jpg',
         ],
     }],
-    price: 19600,
 });
 
 const guitar_task = new ShoppingTask({
@@ -83,7 +84,7 @@ const guitar_order = new Order({
     },
 });
 
-const queue_task = new QueueTask({
+const queue_task = new QueueingTask({
     location: 'some location',
     datetime: Date.now(),
     size: PackageSize.Small,

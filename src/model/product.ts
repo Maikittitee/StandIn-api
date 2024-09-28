@@ -14,7 +14,8 @@ const Category = [
 const brandSchema = new Schema({
     name: { 
         type: String, 
-        required: true,
+        unique: true, 
+        required: true, 
     },
     logo: { 
         type: String,     
@@ -22,48 +23,90 @@ const brandSchema = new Schema({
 });
 
 
-const subproductSchema = new Schema({
+const variantSchema = new Schema({
     images: [String],
-    available: {
-        type: Boolean,
-        required: true,
+    price: {
+        type: Number,
     },
-    size: { 
-        type: String, 
+    description: {
+        type: String,
     },
-    color: { 
-        type: String, 
-    },
+    option: {
+
+    }
 });
 
 
-export const productSchema = new Schema({
+const productSchema = new Schema({
     name: { 
         type: String, 
-        required: true,
+        required: true, 
     },
     brand: {
         type: Schema.Types.ObjectId,
         ref: 'Brand',
-    },
-    store: {
-        type: Schema.Types.ObjectId,
-        ref: 'Store',
+        required: true, 
     },
     category: { 
         type: String, 
         enum: Category,
     },
-    subproduct: {
-        type: [subproductSchema],
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
+    variant: [variantSchema],
 });
 
 
+const retailSchema = new Schema({
+    store: {
+        type: Schema.Types.ObjectId,
+        ref: 'Store',
+        required: true,
+    },
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+    },
+    subproduct: [{
+        variant: {
+            type: Schema.Types.ObjectId,
+            ref: 'ProductVariant',
+            required: true,
+        },
+        available: {
+            type: Boolean,
+            default: true,
+            required: true,
+        },
+    }],
+});
+
+
+export const itemSchema = new Schema({
+    product: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'ProductRetail',
+        required: true,
+    },
+    variant: {
+        type: Schema.Types.ObjectId, 
+        ref: 'ProductVariant',
+        required: true,
+    },
+    quantity: { 
+        type: Number, 
+        min: 1,
+        required: true,
+    },
+}, {
+    _id: false,
+});
+
+
+// https://www.mongodb.com/community/forums/t/product-with-different-varients-schema/136631
+// https://stackoverflow.com/questions/42295107/mongodb-schema-for-ecommerce-products-that-have-variations-with-different-skus
+// https://stackoverflow.com/questions/24923469/modeling-product-variants
+
 export const Brand = model('Brand', brandSchema);
 export const Product = model('Product', productSchema);
-export default Product;
+export const ProductVariant = model('ProductVariant', variantSchema);
+export const ProductRetail = model('ProductRetail', retailSchema);
