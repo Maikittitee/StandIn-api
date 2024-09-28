@@ -15,22 +15,11 @@ export default Router()
 
     res.json(stores);
 })
-.post('/store', async (req, res, next) => {
-    try {
-        const newstore = new Store(req.body);
-        await newstore.save();
-
-        res.status(201);
-    } 
-    catch (error) {
-        res.status(400);
-    }
-})
 .put('/store/:id', async (req, res, next) => {
     const { id } = req.params;
     const store = await Store.findById(id);
     
-    if (store) {
+    if (store != null) {
         const name = req.body.name;
 
         store.name = name;
@@ -39,6 +28,16 @@ export default Router()
         res.status(204);
     }
     else {
+        res.status(400);
+    }
+})
+.post('/store', async (req, res, next) => {
+    try {
+        const newstore = await Store.create(req.body);
+
+        res.status(201);
+    } 
+    catch (error) {
         res.status(400);
     }
 })
@@ -61,11 +60,11 @@ export default Router()
 
     res.json(building);
 })
-.put('/store/:id', async (req, res, next) => {
+.put('/building/:id', async (req, res, next) => {
     const { id } = req.params;
     const building = await Building.findById(id);
     
-    if (building) {
+    if (building != null) {
         const name = req.body.name;
 
         building.name = name;
@@ -79,12 +78,17 @@ export default Router()
 })
 .post('/building', async (req, res, next) => {
     try {
-        const building = new Building(req.body);
-        await building.save();
+        const building = await Building.create(req.body);
 
         res.status(201);
     } 
     catch (error) {
         res.status(400);
     }
+})
+.delete('/building/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const building = await Building.findByIdAndDelete(id);
+
+    res.status(204);
 })
