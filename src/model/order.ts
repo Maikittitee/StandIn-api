@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { taskSchema, TaskType, queueingSchema, shoppingSchema } from './task.js';
 
 
 export enum OrderStatus {
@@ -36,8 +37,7 @@ const reviewSchema = new Schema({
 
 const orderSchema = new Schema({
     task: {
-        type: Schema.Types.ObjectId,
-        ref: 'Task',
+        type: taskSchema,
         required: true,
     },
     orderStatus: {
@@ -71,6 +71,10 @@ const orderSchema = new Schema({
 }, {
     timestamps: true,
 });
+
+const taskPath = orderSchema.path<Schema.Types.Subdocument>('task');
+taskPath.discriminator(TaskType.Queueing, queueingSchema);
+taskPath.discriminator(TaskType.Shopping, shoppingSchema);
 
 
 // https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design

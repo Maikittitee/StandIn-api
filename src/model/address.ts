@@ -1,7 +1,15 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 
-export const addressSchema = new Schema({
+export interface IAddress extends Document {
+    country: string;
+    postalcode: string;
+    province: string;
+    district: string;
+    subdistrict: string;
+    detail: string;
+}
+export const addressSchema = new Schema<IAddress>({
     country: { 
         type: String, 
         default: 'Thailand',

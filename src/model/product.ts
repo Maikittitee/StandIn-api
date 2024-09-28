@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 
 const Category = [
@@ -81,7 +81,12 @@ const retailSchema = new Schema({
 });
 
 
-export const itemSchema = new Schema({
+export interface IItem extends Document {
+    product: Types.ObjectId;
+    variant: Types.ObjectId;
+    quantity: number;
+}
+export const itemSchema = new Schema<IItem>({
     product: { 
         type: Schema.Types.ObjectId, 
         ref: 'ProductRetail',
