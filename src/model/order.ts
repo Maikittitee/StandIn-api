@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { taskSchema, TaskType, queueingSchema, shoppingSchema } from './task.js';
+import { TaskType, taskSchema, queueingSchema, shoppingSchema } from './task.js';
 
 
 export enum OrderStatus {

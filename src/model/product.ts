@@ -37,7 +37,7 @@ const variantSchema = new Schema({
 });
 
 
-const productSchema = new Schema({
+const modelSchema = new Schema({
     name: { 
         type: String, 
         required: true, 
@@ -55,15 +55,15 @@ const productSchema = new Schema({
 });
 
 
-const retailSchema = new Schema({
+const productSchema = new Schema({
     store: {
         type: Schema.Types.ObjectId,
         ref: 'Store',
         required: true,
     },
-    product: {
+    model: {
         type: Schema.Types.ObjectId,
-        ref: 'Product',
+        ref: 'ProductModel',
         required: true,
     },
     subproduct: [{
@@ -81,7 +81,7 @@ const retailSchema = new Schema({
 });
 
 
-export interface IItem extends Document {
+export interface IItem extends Types.Subdocument {
     product: Types.ObjectId;
     variant: Types.ObjectId;
     quantity: number;
@@ -89,7 +89,7 @@ export interface IItem extends Document {
 export const itemSchema = new Schema<IItem>({
     product: { 
         type: Schema.Types.ObjectId, 
-        ref: 'ProductRetail',
+        ref: 'Product',
         required: true,
     },
     variant: {
@@ -112,6 +112,6 @@ export const itemSchema = new Schema<IItem>({
 // https://stackoverflow.com/questions/24923469/modeling-product-variants
 
 export const Brand = model('Brand', brandSchema);
-export const Product = model('Product', productSchema);
+export const ProductModel = model('ProductModel', modelSchema);
 export const ProductVariant = model('ProductVariant', variantSchema);
-export const ProductRetail = model('ProductRetail', retailSchema);
+export const Product = model('Product', productSchema);

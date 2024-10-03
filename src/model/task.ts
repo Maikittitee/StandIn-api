@@ -1,4 +1,4 @@
-import { Schema, Types, Document } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 import { itemSchema, IItem } from './product.js';
 import { addressSchema, IAddress } from './address.js';
 
@@ -14,17 +14,17 @@ export enum PackageSize {
 }
 
 
-interface ITask extends Document {
-    taskType: TaskType;
+interface ITask extends Types.Subdocument {
+    kind: TaskType;
 }
 export const taskSchema = new Schema<ITask>({
-    taskType: { 
+    kind: { 
         type: String, 
         enum: TaskType, 
         required: true,
     },
 }, { 
-    discriminatorKey: 'taskType', 
+    discriminatorKey: 'kind', 
     _id: false,
 });
 
@@ -72,6 +72,14 @@ export const shoppingSchema = new Schema<IShopping>({
 }, {
     _id: false,
 });
+
+
+function isQueueing(task: any): task is IQueueing {
+    return task.kind === TaskType.Queueing;
+}
+function isShopping(task: any): task is IShopping {
+    return task.kind === TaskType.Shopping;
+}
 
 
 // https://mongoosejs.com/docs/discriminators.html
