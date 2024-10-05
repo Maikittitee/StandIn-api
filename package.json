@@ -5,7 +5,7 @@
     "build": "npx tsc",
     "start": "npm run build && node --watch dist/server.js",
     "dev": "nodemon src/app.js",
-    "test": "npm run build && cd dist/test && node"
+    "test": "npm run build && cd dist/test && node --env-file=../../.env"
   },
   "dependencies": {
     "cors": "^2.8.5",

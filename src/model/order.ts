@@ -47,6 +47,7 @@ const orderSchema = new Schema({
         required: true,
     },
     trackStatus: [{
+        _id: false,
         datetime: {
             type: Date,
             required: true,

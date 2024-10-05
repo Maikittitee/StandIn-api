@@ -38,7 +38,7 @@ A simple API built using Express.js.
 
 ## Testing the Project
 
-- Test  project using module in `src/test/`
+- Test project using module in `src/test/`
 	```bash
 	npm test <filename.js>
 	```
