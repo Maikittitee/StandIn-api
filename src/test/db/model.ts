@@ -1,17 +1,12 @@
-import 'dotenv/config';
-import mongoose from 'mongoose';
+import './db.js';
 
-import { Building, Store } from '../model/address.js';
-import { Order, OrderStatus, TrackStatus } from '../model/order.js';
-import { Brand, Product, ProductModel } from '../model/product.js';
-import { TaskType, PackageSize } from '../model/task.js';
-
-
-// @ts-expect-error
-await mongoose.connect(process.env.ATLAS_URI);
+import { Building, Store } from '../../model/address.js';
+import { Order, OrderStatus, TrackStatus } from '../../model/order.js';
+import { Brand, Product, ProductModel } from '../../model/product.js';
+import { TaskType, PackageSize } from '../../model/task.js';
 
 
-const siam_paragon = new Building({
+export const siam_paragon = new Building({
     name: 'SIAM PARAGON',
     address: {
         country: 'Thailand',
@@ -23,19 +18,18 @@ const siam_paragon = new Building({
     },
 });
 
-const music_collection = new Store({
+export const music_collection = new Store({
     name: 'music collection',
     building: siam_paragon._id,
 });
 
-const crafter = new Brand({
+export const crafter = new Brand({
     name: 'Crafter',
     logo: 'http://www.crafterguitars.com/eng/images/common/h_logo.png',
 });
 
-
 // Crafter's guitar model
-const interesting_guitar = new ProductModel({
+export const interesting_guitar = new ProductModel({
     name: 'TMC-035EQ',
     brand: crafter._id,
     category: undefined,
@@ -51,10 +45,10 @@ const interesting_guitar = new ProductModel({
     ],
 });
 
-const guitar_variant = interesting_guitar.variant[0];
+export const guitar_variant = interesting_guitar.variant[0];
 
 // guitar selling at store
-const good_guitar = new Product({
+export const good_guitar = new Product({
     store: music_collection._id,
     model: interesting_guitar._id,
     subproduct: [{
@@ -63,7 +57,7 @@ const good_guitar = new Product({
     }],
 });
 
-const guitar_order = new Order({
+export const guitar_order = new Order({
     task: {
         kind: TaskType.Shopping,
         store: music_collection._id,
@@ -94,7 +88,7 @@ const guitar_order = new Order({
     // customer: '',
 });
 
-const queue_order = new Order({
+export const queue_order = new Order({
     task: {
         kind: TaskType.Queueing,
         location: {
@@ -115,6 +109,7 @@ const queue_order = new Order({
     // stander: '',
     // customer: '',
 });
+
 
 console.log(await siam_paragon.save());
 console.log(await music_collection.save());
