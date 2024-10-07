@@ -32,7 +32,7 @@ const variantSchema = new Schema({
         type: String,
     },
     option: {
-
+        type: String,
     }
 });
 
@@ -67,9 +67,10 @@ const productSchema = new Schema({
         required: true,
     },
     subproduct: [{
+        _id: false,
         variant: {
             type: Schema.Types.ObjectId,
-            ref: 'ProductVariant',
+            // ref: 'ProductModel.variant',
             required: true,
         },
         available: {
@@ -94,7 +95,7 @@ export const itemSchema = new Schema<IItem>({
     },
     variant: {
         type: Schema.Types.ObjectId, 
-        ref: 'ProductVariant',
+        // ref: 'ProductModel.variant',
         required: true,
     },
     quantity: { 
@@ -113,5 +114,4 @@ export const itemSchema = new Schema<IItem>({
 
 export const Brand = model('Brand', brandSchema);
 export const ProductModel = model('ProductModel', modelSchema);
-export const ProductVariant = model('ProductVariant', variantSchema);
 export const Product = model('Product', productSchema);

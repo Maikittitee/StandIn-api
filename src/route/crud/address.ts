@@ -45,8 +45,8 @@ export default Router()
 
 
 .get('/building', async (req, res, next) => {
-    const query = req.query.q;
-    const buildings = await Building.find({ name: query });
+    const { q } = req.query;
+    const buildings = await Building.find({ name: q });
 
     res.json(buildings);
 })

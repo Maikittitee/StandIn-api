@@ -34,7 +34,7 @@ export default Router()
         res.status(400);
     }
     else {
-        const name = req.body.name;
+        const { name } = req.body;
 
         order
         await order.save();
@@ -47,7 +47,7 @@ export default Router()
     const order = await Order.findById(id);
 
     if (order != null) {
-        const name = req.body.name;
+        const { name } = req.body;
 
         await order.save();
 

@@ -74,10 +74,10 @@ export const shoppingSchema = new Schema<IShopping>({
 });
 
 
-function isQueueing(task: any): task is IQueueing {
+export function isQueueing(task: any): task is IQueueing {
     return task.kind === TaskType.Queueing;
 }
-function isShopping(task: any): task is IShopping {
+export function isShopping(task: any): task is IShopping {
     return task.kind === TaskType.Shopping;
 }
 

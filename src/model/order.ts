@@ -20,8 +20,8 @@ export enum TrackStatus {
 
 
 const reviewSchema = new Schema({
-    rating: { 
-        type: Number, 
+    rating: {
+        type: Number,
         min: 1,
         max: 5,
         required: true,
