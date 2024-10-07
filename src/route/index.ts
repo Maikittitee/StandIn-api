@@ -4,13 +4,11 @@ import order from './order.js';
 import address from './address.js';
 // import user from './user';
 
-const router = Router();
 
-router.get('/', (req, res) => {
-    res.send('Hello World');
-});
-
-export default router
+export default Router()
+    .get('/', (req, res) => {
+        res.send('Hello World');
+    })
     .use('/product', product)
     .use('/address', address)
     .use('/order', order)
