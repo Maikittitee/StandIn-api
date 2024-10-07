@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { Order } from '../model/order.js';
-import { TaskType, PackageSize, isShopping, isQueueing } from '../model/task.js';
+import { Order } from '../../model/order.js';
+import { TaskType, PackageSize, isShopping, isQueueing } from '../../model/task.js';
 
 export default Router()
 
@@ -21,7 +21,7 @@ export default Router()
         const order = await Order.create(req.body);
 
         res.status(201);
-    } 
+    }
     catch (error) {
         res.status(400);
     }
@@ -29,7 +29,7 @@ export default Router()
 .put('/order/:id', async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findById(id);
-    
+
     if (order == null) {
         res.status(400);
     }
@@ -38,14 +38,14 @@ export default Router()
 
         order
         await order.save();
-    
+
         res.status(204);
     }
 })
 .patch('/order/:id', async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findById(id);
-    
+
     if (order != null) {
         const name = req.body.name;
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Brand, Product, ProductModel } from '../model/product.js';
+import { Brand, Product, ProductModel } from '../../model/product.js';
 
 export default Router()
 
@@ -15,7 +15,7 @@ export default Router()
         const brand = await Brand.create(req.body);
 
         res.status(201);
-    } 
+    }
     catch (error) {
         res.status(400);
     }
@@ -23,7 +23,7 @@ export default Router()
 .put('/brand/:id', async (req, res, next) => {
     const { id } = req.params;
     const brand = await Brand.findById(id);
-    
+
     if (brand == null) {
         res.status(400);
     }
@@ -37,7 +37,7 @@ export default Router()
             brand.logo = logo;
         }
         await brand.save();
-    
+
         res.status(204);
     }
 })
@@ -59,7 +59,7 @@ export default Router()
     try {
         const model = await ProductModel.create(req.body);
         res.status(201);
-    } 
+    }
     catch (error) {
         res.status(400);
     }
@@ -67,14 +67,14 @@ export default Router()
 .put('/model/:id', async (req, res, next) => {
     const { id } = req.params;
     const model = await ProductModel.findById(id);
-    
+
     if (model == null) {
         res.status(400);
     }
     else {
-        
+
         await model.save();
-    
+
         res.status(204);
     }
 })
@@ -88,7 +88,7 @@ export default Router()
 
 .get('/product', async (req, res, next) => {
     const { q } = req.query;
-    //const products = await Product.find({ name: q });
+    // const products = await Product.find({ name: q });
 
     res.json(products);
 })
@@ -96,7 +96,7 @@ export default Router()
     try {
         const product = await Product.create(req.body);
         res.status(201);
-    } 
+    }
     catch (error) {
         res.status(400);
     }
@@ -104,13 +104,13 @@ export default Router()
 .put('/product/:id', async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findById(id);
-    
+
     if (product == null) {
         res.status(400);
     }
     else {
         await product.save();
-    
+
         res.status(204);
     }
 })
