@@ -1,15 +1,20 @@
 import { Router } from 'express';
-import product from './product.js';
-import order from './order.js';
-import address from './address.js';
-// import user from './user';
+import product from './crud/product.js';
+import order from './crud/order.js';
+import address from './crud/address.js';
+import account from './customer.js';
+import customer from './customer.js';
+import stander from './stander.js';
+import browse from './browse.js';
+import commerce from './order.js';
 
 
 export default Router()
-    .get('/', (req, res) => {
-        res.send('Hello World');
-    })
     .use('/product', product)
     .use('/address', address)
     .use('/order', order)
-    // .use('/user', user)
+    .use('/account', account)
+    .use('/customer', customer)
+    .use('/stander', stander)
+    .use('/browse', browse)
+    .use('/commerce', commerce)
