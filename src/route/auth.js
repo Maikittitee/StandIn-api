@@ -2,7 +2,7 @@ const express = require("express");
 require('dotenv').config();
 const router = express.Router(); 
 const mongoose = require("mongoose");
-const User = require("../models/User.js");
+const User = require("../model/User.js");
 const bcrypt = require("bcrypt")
 
 router.post('/sign-up', async (req, res) => {
