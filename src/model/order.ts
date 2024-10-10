@@ -40,7 +40,7 @@ const orderSchema = new Schema({
         type: taskSchema,
         required: true,
     },
-    orderStatus: {
+    status: {
         type: Number,
         enum: OrderStatus,
         default: OrderStatus.Pending,

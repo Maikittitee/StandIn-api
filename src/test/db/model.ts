@@ -67,7 +67,7 @@ export const guitar_order = new Order({
             quantity: 1,
         }],
     },
-    orderStatus: OrderStatus.Paid,
+    status: OrderStatus.Paid,
     trackStatus: [
         {
             datetime: Date.now(),
@@ -103,7 +103,7 @@ export const queue_order = new Order({
         size: PackageSize.Small,
         detail: 'some description',
     },
-    orderStatus: OrderStatus.Pending,
+    status: OrderStatus.Pending,
     // review: undefined,
     // trackStatus: [],
     // stander: '',

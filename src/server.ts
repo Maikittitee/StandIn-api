@@ -14,7 +14,7 @@ assert(uri && PORT);
 
 await mongoose.connect(uri);
 
-const app = express()
+express()
     .use(cors())
     .use(express.json())
     .use(router)

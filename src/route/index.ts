@@ -6,7 +6,7 @@ import account from './customer.js';
 import customer from './customer.js';
 import stander from './stander.js';
 import browse from './browse.js';
-import commerce from './order.js';
+import commerce from './ordering.js';
 
 
 export default Router()

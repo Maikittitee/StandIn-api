@@ -90,7 +90,7 @@ export default Router()
     const { q } = req.query;
     // const products = await Product.find({ name: q });
 
-    res.json(products);
+    //res.json(products);
 })
 .post('/product', async (req, res, next) => {
     try {

@@ -16,9 +16,9 @@ export default Router()
         return res.status(404);
     }
 
-    order.status = OrderStatus;
+    order.status = OrderStatus.Accepted;
     order.save();
-    res.json(orders);
+    // res.json(orders);
 })
 .post('/reject', async (req, res, next) => {
     const order = await Order.findById({ stander: '' });
@@ -27,7 +27,7 @@ export default Router()
         return res.status(404);
     }
 
-    order.status = OrderStatus;
+    order.status = OrderStatus.Accepted;
     order.save();
-    res.json(orders);
+    // res.json(orders);
 })
