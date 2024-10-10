@@ -1,22 +1,41 @@
-import 'dotenv/config';
+// import 'dotenv/config';
 import express from 'express';
+import dotenv from 'dotenv'
+
 import mongoose from 'mongoose';
-import cors from 'cors';
-import assert from 'node:assert';
-import router from './route/index.js';
+// import router from './route/index.js';
+// import users from './route/users';
+// import auth from './route/auth';
+dotenv.config();
 
-
-const uri = process.env.ATLAS_URI;
+const uri: string = process.env.ATLAS_URI || "";
 const PORT = process.env.PORT;
 
-assert(uri);
-assert(PORT);
 
 
-mongoose.connect(uri);
+mongoose.Promise = global.Promise;
+mongoose.connect(uri)
+    .then(() => console.log("Mongo connected"))
+    .catch((error) => console.error("Mongo connection error:", error));
 
-const app = express()
-    .use(cors())
-    .use(express.json())
-    .use(router)
-    .listen(PORT);
+// const connection = mongoose.createConnection(`mongodb://localhost:27017/test`, {})
+
+const app = express();
+
+// app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// app.use(router);
+// app.use('/users', users);
+// app.use('/auth', auth);
+
+app.get('/', (req, res) => {
+    res.send('Hello, Stand In!');
+});
+
+app.listen(3000, () => {
+    console.log(`Server is listening on port ${3000}`);
+});
+
+// console.log("hello ts");
