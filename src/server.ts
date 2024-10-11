@@ -4,8 +4,8 @@ import dotenv from 'dotenv'
 
 import mongoose from 'mongoose';
 // import router from './route/index.js';
-// import users from './route/users';
-// import auth from './route/auth';
+import users from './route/users';
+import auth from './route/auth';
 dotenv.config();
 
 const uri: string = process.env.ATLAS_URI || "";
@@ -18,7 +18,6 @@ mongoose.connect(uri)
     .then(() => console.log("Mongo connected"))
     .catch((error) => console.error("Mongo connection error:", error));
 
-// const connection = mongoose.createConnection(`mongodb://localhost:27017/test`, {})
 
 const app = express();
 
@@ -27,8 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use(router);
-// app.use('/users', users);
-// app.use('/auth', auth);
+app.use('/users', users);
+app.use('/auth', auth);
 
 app.get('/', (req, res) => {
     res.send('Hello, Stand In!');
