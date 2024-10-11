@@ -7,7 +7,7 @@ import { TaskType, PackageSize } from '../../model/task.js';
 
 
 export const siam_paragon = new Building({
-    name: 'SIAM PARAGON',
+    name: 'Siam Paragon',
     address: {
         country: 'Thailand',
         zipcode: '10330',
@@ -19,7 +19,7 @@ export const siam_paragon = new Building({
 });
 
 export const music_collection = new Store({
-    name: 'music collection',
+    name: 'Music Collection',
     building: siam_paragon._id,
 });
 

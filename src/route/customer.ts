@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Order } from '../model/order.js';
+import { Order, OrderStatus } from '../model/order.js';
 import { TaskType } from '../model/task.js';
 import { Customer } from '../model/test_customer.js';
 
@@ -7,11 +7,9 @@ export default Router()
 
 
 .get('/history', async (req, res, next) => {
-    const orders = await Order.find({ customer: '' });
-
-    if (orders == null) {
-        return res.status(404);
-    }
+    // @ts-expect-error
+    const user_id = res.session.user;
+    const orders = await Order.find({ customer: user_id });
 
     const ordersPop = orders.map(async (order) => {
         if (order.task?.kind == TaskType.Shopping) {
@@ -24,21 +22,64 @@ export default Router()
 
     res.json(ordersPop);
 })
+
 .get('/cart', async (req, res, next) => {
-    const user = await Customer.findById('');
+    // @ts-expect-error
+    const user_id = res.session.user;
+    const customer = await Customer.findById(user_id);
 
-    if (user == null) {
+    if (customer == null) {
         return res.status(404);
     }
-    res.json(user.cart);
+    // @ts-expect-error
+    customer.cart.find({})?.populate('product');
+    const cartPop = customer.cart.map(async (item) => {
+        return await item.populate('product')
+    });
+
+    res.json(cartPop);
 })
-.post('/cart', async (req, res, next) => {
-    const user = await Customer.findById('');
 
-    if (user == null) {
+.post('/cart', async (req, res, next) => {
+    // @ts-expect-error
+    const customer_id = res.session.user;
+    const customer = await Customer.findById(customer_id);
+
+    if (customer == null) {
         return res.status(404);
     }
-    user.cart.push(req.body);
-    user.save();
-    res.json(user.cart);
+    customer.cart.push(req.body);
+    customer.save();
+    res.json(customer.cart);
+})
+
+.post('/review', async (req, res, next) => {
+    // @ts-expect-error
+    const customer_id = res.session.user;
+    const order_id = req.query.order;
+
+    const order = await Order.findById(order_id);
+
+    if (order == null) {
+        return res.status(404);
+    }
+    order.review = req.body;
+    order.save();
+    res.json(order.review);
+})
+
+.get('/order/:id/pay', async (req, res, next) => {
+    //const order_id = req.query.order;
+    const { id } = req.params;
+    // @ts-expect-error
+    const customer_id = res.session.user;
+    const order = await Order.findById(id);
+
+    if (order == null) {
+        return res.status(404);
+    }
+
+    order.status = OrderStatus.Paid;
+    order.save();
+    res.json(order.status);
 })

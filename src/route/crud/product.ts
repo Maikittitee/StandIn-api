@@ -5,8 +5,8 @@ export default Router()
 
 
 .get('/brand', async (req, res, next) => {
-    const { q } = req.query;
-    const brands = await Brand.find({ name: q });
+    const { name } = req.query;
+    const brands = await Brand.find({ name: name });
 
     res.json(brands);
 })
@@ -50,8 +50,8 @@ export default Router()
 
 
 .get('/model', async (req, res, next) => {
-    const { q } = req.query;
-    const models = await ProductModel.find({ name: q });
+    const { name } = req.query;
+    const models = await ProductModel.find({ name: name });
 
     res.json(models);
 })

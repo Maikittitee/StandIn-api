@@ -6,7 +6,6 @@ import account from './customer.js';
 import customer from './customer.js';
 import stander from './stander.js';
 import browse from './browse.js';
-import commerce from './ordering.js';
 
 
 export default Router()
@@ -17,4 +16,3 @@ export default Router()
     .use('/customer', customer)
     .use('/stander', stander)
     .use('/browse', browse)
-    .use('/commerce', commerce)

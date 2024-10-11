@@ -7,15 +7,17 @@ export default Router()
 
 
 .get('/product', async (req, res, next) => {
-    const products = await Product.find();
+    const products = await Product.find(); // ?
 
     res.json(products);
 })
+
 .get('/stander', async (req, res, next) => {
     const standers = await Stander.find();
 
     res.json(standers);
 })
+
 .get('/stander/:id', async (req, res, next) => {
     const { id } = req.params;
     const stander = await Stander.findById(id);
