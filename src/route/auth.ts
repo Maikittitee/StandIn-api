@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../model/User"; // Ensure User is correctly typed in User.ts
 import { IUser } from "../types/user";
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+
 dotenv.config();
 
 interface SignUpRequestBody {
@@ -57,8 +59,13 @@ router.post('/sign-in', async (req: Request, res: Response) => {
 			return;
 		}
 
+		const token = jwt.sign({
+			username: user_data.username,
+			role: "user"
+		}, "secret" , {expiresIn: "1h"} );
 		res.json({
 			message: "Login success",
+			token
 		});
 		
 	} catch (error) {
@@ -66,6 +73,23 @@ router.post('/sign-in', async (req: Request, res: Response) => {
 		res.status(401).json({
 			message: "Login Failed"
 		});
+	}
+});
+
+router.get('/me', async (req: Request, res: Response) => {
+	try {
+		const authHeader: any = req.headers["authorization"];
+		console.log(authHeader)
+		let authToken = ''
+		if (authHeader){
+			authToken = authHeader.split(' ')[1];
+		}
+		const user_data: any = jwt.verify(authToken, 'secret');
+		console.log(user_data);
+		const LoginUser = await User.findOne({username: user_data['username']});
+		res.json({"message": LoginUser});
+	} catch (error) {
+		res.json({ "message": error });
 	}
 });
 
