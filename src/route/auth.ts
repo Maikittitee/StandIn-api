@@ -87,7 +87,10 @@ router.get('/me', async (req: Request, res: Response) => {
 		const user_data: any = jwt.verify(authToken, 'secret');
 		console.log(user_data);
 		const LoginUser = await User.findOne({username: user_data['username']});
-		res.json({"message": LoginUser});
+		res.json({
+			"message": "successful",
+			"data": LoginUser
+		});
 	} catch (error) {
 		res.json({ "message": error });
 	}
