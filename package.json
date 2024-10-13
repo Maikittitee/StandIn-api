@@ -1,15 +1,21 @@
 {
-  "author": "ktunchar",
-  "type": "module",
+  "name": "standin-api",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
     "build": "npx tsc",
     "dev": "nodemon",
     "start": "node ./dist/server.js",
     "test": "npm run build && cd ./dist/test && node --env-file=../../.env -i"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1"
     "express": "^4.21.1",
     "mongoose": "^8.7.1"
   },
