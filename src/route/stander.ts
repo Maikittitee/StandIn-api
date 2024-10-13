@@ -32,15 +32,18 @@ export default Router()
     const order = await Order.findById(id);
 
     if (order == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
     else {
         // @ts-expect-error
         if (order.stander != stander_id) {
-            return res.status(401);
+            res.status(401);
+            return;
         }
         if (order.status != OrderStatus.Pending) {
-            return res.status(400);
+            res.status(400);
+            return;
         }
     }
 
@@ -64,12 +67,14 @@ export default Router()
     const order = await Order.findById(id);
 
     if (order == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
     else {
         // @ts-expect-error
         if (order.stander != stander_id) {
-            return res.status(401);
+            res.status(401);
+            return;
         }
     }
 

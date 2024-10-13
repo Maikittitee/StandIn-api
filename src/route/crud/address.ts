@@ -26,15 +26,14 @@ export default Router()
 
     if (store == null) {
         res.status(400);
+        return;
     }
-    else {
-        const { name } = req.body;
+    const { name } = req.body;
 
-        store.name = name;
-        store.save();
+    store.name = name;
+    store.save();
 
-        res.status(204);
-    }
+    res.status(204);
 })
 .delete('/store/:id', async (req, res, next) => {
     const { id } = req.params;
@@ -66,20 +65,20 @@ export default Router()
 
     if (building == null) {
         res.status(400);
+        return;
     }
-    else {
-        const { name, address } = req.body;
 
-        if (address) {
-            building.address = address;
-        }
-        if (name) {
-            building.name = name;
-        }
-        await building.save();
+    const { name, address } = req.body;
 
-        res.status(204);
+    if (address) {
+        building.address = address;
     }
+    if (name) {
+        building.name = name;
+    }
+    await building.save();
+
+    res.status(204);
 })
 .delete('/building/:id', async (req, res, next) => {
     const { id } = req.params;

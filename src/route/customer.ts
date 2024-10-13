@@ -29,12 +29,14 @@ export default Router()
     const customer = await Customer.findById(user_id);
 
     if (customer == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
     // @ts-expect-error
     customer.cart.find({})?.populate('product');
     const cartPop = customer.cart.map(async (item) => {
-        return await item.populate('product')
+        await item.populate('product')
+        return;
     });
 
     res.json(cartPop);
@@ -46,7 +48,8 @@ export default Router()
     const customer = await Customer.findById(customer_id);
 
     if (customer == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
     customer.cart.push(req.body);
     customer.save();
@@ -61,7 +64,8 @@ export default Router()
     const order = await Order.findById(order_id);
 
     if (order == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
     order.review = req.body;
     order.save();
@@ -76,7 +80,8 @@ export default Router()
     const order = await Order.findById(id);
 
     if (order == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
 
     order.status = OrderStatus.Paid;

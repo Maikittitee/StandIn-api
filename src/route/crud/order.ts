@@ -10,10 +10,9 @@ export default Router()
 
     if (order == null) {
         res.status(400);
+        return;
     }
-    else {
-        res.json(order);
-    }
+    res.json(order);
 })
 .post('/order', async (req, res, next) => {
     try {
@@ -31,30 +30,28 @@ export default Router()
 
     if (order == null) {
         res.status(400);
+        return;
     }
-    else {
-        const { name } = req.body;
+    const { name } = req.body;
 
-        order
-        await order.save();
+    order
+    await order.save();
 
-        res.status(204);
-    }
+    res.status(204);
 })
 .patch('/order/:id', async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findById(id);
 
-    if (order != null) {
-        const { name } = req.body;
-
-        await order.save();
-
-        res.status(204);
-    }
-    else {
+    if (order == null) {
         res.status(400);
+        return;
     }
+    const { name } = req.body;
+
+    await order.save();
+
+    res.status(204);
 })
 .delete('/order/:id', async (req, res, next) => {
     const { id } = req.params;

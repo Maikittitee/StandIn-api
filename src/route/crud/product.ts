@@ -26,20 +26,19 @@ export default Router()
 
     if (brand == null) {
         res.status(400);
+        return;
     }
-    else {
-        const { name, logo } = req.body;
+    const { name, logo } = req.body;
 
-        if (name) {
-            brand.name = name;
-        }
-        if (logo) {
-            brand.logo = logo;
-        }
-        await brand.save();
-
-        res.status(204);
+    if (name) {
+        brand.name = name;
     }
+    if (logo) {
+        brand.logo = logo;
+    }
+    await brand.save();
+
+    res.status(204);
 })
 .delete('/brand/:id', async (req, res, next) => {
     const { id } = req.params;
@@ -70,13 +69,11 @@ export default Router()
 
     if (model == null) {
         res.status(400);
+        return;
     }
-    else {
+    await model.save();
 
-        await model.save();
-
-        res.status(204);
-    }
+    res.status(204);
 })
 .delete('/model/:id', async (req, res, next) => {
     const { id } = req.params;
@@ -107,12 +104,11 @@ export default Router()
 
     if (product == null) {
         res.status(400);
+        return;
     }
-    else {
-        await product.save();
+    await product.save();
 
-        res.status(204);
-    }
+    res.status(204);
 })
 .delete('/product/:id', async (req, res, next) => {
     const { id } = req.params;

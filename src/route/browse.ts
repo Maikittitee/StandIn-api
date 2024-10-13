@@ -23,7 +23,8 @@ export default Router()
     const stander = await Stander.findById(id);
 
     if (stander == null) {
-        return res.status(404);
+        res.status(404);
+        return;
     }
 
     res.json(stander);
