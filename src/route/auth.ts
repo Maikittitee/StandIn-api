@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import User from "../model/User"; // Ensure User is correctly typed in User.ts
-import { IUser } from "../types/user";
+import User from "../model/User.js"; // Ensure User is correctly typed in User.ts
+import { IUser } from "../types/user.js";
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 
 dotenv.config();
@@ -67,7 +67,7 @@ router.post('/sign-in', async (req: Request, res: Response) => {
 			message: "Login success",
 			token
 		});
-		
+
 	} catch (error) {
 		console.error("error: ", error);
 		res.status(401).json({

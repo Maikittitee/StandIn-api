@@ -2,8 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './route/index.js';
-import users from './route/users';
-import auth from './route/auth';
+import users from './route/users.js';
+import auth from './route/auth.js';
 
 const uri: string = process.env.ATLAS_URI || "";
 const PORT = process.env.PORT;
