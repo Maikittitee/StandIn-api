@@ -1,5 +1,4 @@
 {
-  "author": "ktunchar",
   "type": "module",
   "scripts": {
     "build": "npx tsc",
@@ -7,14 +6,17 @@
     "start": "node ./dist/server.js",
     "test": "npm run build && cd ./dist/test && node --env-file=../../.env -i"
   },
+  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.1"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.7.5",
