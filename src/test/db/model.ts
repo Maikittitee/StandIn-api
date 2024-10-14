@@ -3,7 +3,8 @@ import { Order, OrderStatus, TrackStatus } from '../../model/order.js';
 import { Brand, Product, ProductModel } from '../../model/product.js';
 import { TaskType, PackageSize } from '../../model/task.js';
 
-import './db.js';
+import './connection.js';
+
 
 export const siam_paragon = new Building({
     name: 'Siam Paragon',
@@ -216,29 +217,3 @@ export const queue_order = new Order({
     // stander: '',
     // customer: '',
 });
-
-
-console.log(await siam_paragon.save());
-console.log(await ct_music_addr.save());
-console.log(await promenade.save());
-
-console.log(await music_collection.save());
-console.log(await ct_music.save());
-console.log(await cin_guitar.save());
-
-console.log(await crafter.save());
-console.log(await cort.save());
-console.log(await ibanez.save());
-console.log(await taylor.save());
-
-console.log(await tmc035.save());
-console.log(await flow_oc.save());
-console.log(await guitar_mod1.save());
-console.log(await guitar_mod2.save());
-console.log(await guitar_mod3.save());
-
-console.log(await old_guitar.save());
-console.log(await great_one.save());
-
-console.log(await guitar_order.save());
-console.log(await queue_order.save());

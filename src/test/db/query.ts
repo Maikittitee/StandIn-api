@@ -1,12 +1,11 @@
-import './db.js';
 import assert from 'assert';
-// import * as doc from './model.js';
-
+import * as fuzz from 'fuzzball';
 import { Building, Store } from '../../model/address.js';
 import { Order, OrderStatus, TrackStatus } from '../../model/order.js';
 import { Brand, Product, ProductModel } from '../../model/product.js';
 import { TaskType, PackageSize } from '../../model/task.js';
 
+import './connection.js';
 
 
 const building1 = await Building.findOne({ name: 'Siam Paragon' });
@@ -19,7 +18,6 @@ assert(store1?.building?._id.equals(building1?._id));
 console.log(await store1?.populate('building'));
 
 
-
 const brand1 = await Brand.findOne({ name: 'Crafter' });
 const productModel1 = await ProductModel.findOne({ name: 'TMC-035EQ' });
 
@@ -28,7 +26,6 @@ console.log(productModel1);
 assert(brand1?._id.equals(productModel1?.brand._id));
 
 console.log(await productModel1?.populate('brand'));
-
 
 
 const product1 = await Product.findOne({ model: productModel1?.id });
@@ -44,11 +41,9 @@ console.log(product3);
 // console.log(product4);
 
 
-
 const order = await Order.find();
 console.log(order[0]);
 console.log(order[1]);
-
 
 
 // test undefined key
@@ -58,14 +53,11 @@ const products = await Product.find({ name: params.name });
 console.log(products);
 
 
-
 // find by string id
 const pid = product1?._id.toString();
 console.log(await Product.find({ _id: pid }));
 
 
-
-import * as fuzz from 'fuzzball';
 
 const documents = [
     { id: 1, name: 'Apple iPhone 12' },
@@ -89,6 +81,9 @@ const options = {
 }
 console.log('Search results:');
 for (const q of query) {
-    const x = fuzz.extract(q, documents, options);
+    let x = fuzz.extract(q, documents, options);
     console.log(x);
 }
+
+
+process.exit(0);
