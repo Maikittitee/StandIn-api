@@ -8,9 +8,9 @@ import browse from './browse.js';
 
 
 export default Router()
-    .use('/', product)
-    .use('/', address)
-    .use('/', order)
+    .use(product)
+    .use(address)
+    .use(order)
     .use('/customer', customer)
     .use('/stander', stander)
     .use('/browse', browse)
