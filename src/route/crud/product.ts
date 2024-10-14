@@ -4,115 +4,142 @@ import { Brand, Product, ProductModel } from '../../model/product.js';
 export default Router()
 
 
-.get('/brand', async (req, res, next) => {
-    const { name } = req.query;
-    const brands = await Brand.find({ name: name });
-
-    res.json(brands);
-})
 .post('/brand', async (req, res, next) => {
+    let brand;
     try {
-        const brand = await Brand.create(req.body);
-
-        res.status(201);
+        brand = await Brand.create(req.body);
     }
     catch (error) {
         res.status(400);
+        return;
     }
+
+    res.json(brand);
 })
-.put('/brand/:id', async (req, res, next) => {
+.get('/brand/:id', async (req, res, next) => {
     const { id } = req.params;
     const brand = await Brand.findById(id);
 
     if (brand == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    const { name, logo } = req.body;
 
-    if (name) {
-        brand.name = name;
-    }
-    if (logo) {
-        brand.logo = logo;
-    }
-    await brand.save();
+    res.json(brand);
+})
+.put('/brand/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const brand = await Brand.findByIdAndUpdate(id, req.body);
 
-    res.status(204);
+    if (brand == null) {
+        res.status(404);
+        return;
+    }
+
+    res.json(brand);
 })
 .delete('/brand/:id', async (req, res, next) => {
     const { id } = req.params;
     const brand = await Brand.findByIdAndDelete(id);
 
+    if (brand == null) {
+        res.status(404);
+        return;
+    }
+
     res.status(204);
 })
 
 
-.get('/model', async (req, res, next) => {
-    const { name } = req.query;
-    const models = await ProductModel.find({ name: name });
-
-    res.json(models);
-})
 .post('/model', async (req, res, next) => {
+    let model;
     try {
-        const model = await ProductModel.create(req.body);
-        res.status(201);
+        model = await ProductModel.create(req.body);
     }
     catch (error) {
         res.status(400);
+        return;
     }
+
+    res.json(model);
 })
-.put('/model/:id', async (req, res, next) => {
+.get('/model/:id', async (req, res, next) => {
     const { id } = req.params;
     const model = await ProductModel.findById(id);
 
     if (model == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    await model.save();
 
-    res.status(204);
+    res.json(model);
+})
+.put('/model/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const model = await ProductModel.findByIdAndUpdate(id, req.body);
+
+    if (model == null) {
+        res.status(404);
+        return;
+    }
+
+    res.json(model);
 })
 .delete('/model/:id', async (req, res, next) => {
     const { id } = req.params;
     const model = await ProductModel.findByIdAndDelete(id);
 
+    if (model == null) {
+        res.status(404);
+        return;
+    }
+
     res.status(204);
 })
 
 
-.get('/product', async (req, res, next) => {
-    const { q } = req.query;
-    // const products = await Product.find({ name: q });
-
-    //res.json(products);
-})
 .post('/product', async (req, res, next) => {
+    let product;
     try {
-        const product = await Product.create(req.body);
-        res.status(201);
+        product = await Product.create(req.body);
     }
     catch (error) {
         res.status(400);
+        return;
     }
+
+    res.json(product);
 })
-.put('/product/:id', async (req, res, next) => {
+.get('/product/:id', async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findById(id);
 
     if (product == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    await product.save();
 
-    res.status(204);
+    res.json(product);
+})
+.put('/product/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body);
+
+    if (product == null) {
+        res.status(404);
+        return;
+    }
+
+    res.json(product);
 })
 .delete('/product/:id', async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findByIdAndDelete(id);
+
+    if (product == null) {
+        res.status(404);
+        return;
+    }
 
     res.status(204);
 })

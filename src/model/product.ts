@@ -1,7 +1,7 @@
 import { Schema, model, Types } from 'mongoose';
 
 
-const Category = [
+export const Category = [
     'Clothing',
     'Beauty',
     'Electronics',
@@ -12,13 +12,13 @@ const Category = [
 
 
 const brandSchema = new Schema({
-    name: { 
-        type: String, 
-        unique: true, 
-        required: true, 
+    name: {
+        type: String,
+        unique: true,
+        required: true,
     },
-    logo: { 
-        type: String,     
+    logo: {
+        type: String,
     },
 });
 
@@ -38,17 +38,17 @@ const variantSchema = new Schema({
 
 
 const modelSchema = new Schema({
-    name: { 
-        type: String, 
-        required: true, 
+    name: {
+        type: String,
+        required: true,
     },
     brand: {
         type: Schema.Types.ObjectId,
         ref: 'Brand',
-        required: true, 
+        required: true,
     },
-    category: { 
-        type: String, 
+    category: {
+        type: String,
         enum: Category,
     },
     variant: [variantSchema],
@@ -88,18 +88,18 @@ export interface IItem extends Types.Subdocument {
     quantity: number;
 }
 export const itemSchema = new Schema<IItem>({
-    product: { 
-        type: Schema.Types.ObjectId, 
+    product: {
+        type: Schema.Types.ObjectId,
         ref: 'Product',
         required: true,
     },
     variant: {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         // ref: 'ProductModel.variant',
         required: true,
     },
-    quantity: { 
-        type: Number, 
+    quantity: {
+        type: Number,
         min: 1,
         required: true,
     },

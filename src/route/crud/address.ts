@@ -4,85 +4,95 @@ import { Store, Building } from '../../model/address.js';
 export default Router()
 
 
-.get('/store', async (req, res, next) => {
-    const { name } = req.query;
-    const stores = await Store.find({ name: name });
-
-    res.json(stores);
-})
 .post('/store', async (req, res, next) => {
+    let store;
     try {
-        const newstore = await Store.create(req.body);
-
-        res.status(201);
+        store = await Store.create(req.body);
     }
     catch (error) {
         res.status(400);
+        return;
     }
+
+    res.json(store);
 })
-.put('/store/:id', async (req, res, next) => {
+.get('/store/:id', async (req, res, next) => {
     const { id } = req.params;
     const store = await Store.findById(id);
 
     if (store == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    const { name } = req.body;
 
-    store.name = name;
-    store.save();
+    res.json(store);
+})
+.put('/store/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const store = await Store.findByIdAndUpdate(id, req.body);
 
-    res.status(204);
+    if (store == null) {
+        res.status(404);
+        return;
+    }
+
+    res.json(store);
 })
 .delete('/store/:id', async (req, res, next) => {
     const { id } = req.params;
     const store = await Store.findByIdAndDelete(id);
 
+    if (store == null) {
+        res.status(404);
+        return;
+    }
+
     res.status(204);
 })
 
 
-.get('/building', async (req, res, next) => {
-    const { name } = req.query;
-    const buildings = await Building.find({ name: name });
-
-    res.json(buildings);
-})
 .post('/building', async (req, res, next) => {
+    let building;
     try {
-        const building = await Building.create(req.body);
-
-        res.status(201);
+        building = await Building.create(req.body);
     }
     catch (error) {
-        res.status(400);
-    }
-})
-.put('/building/:id', async (req, res, next) => {
-    const { id } = req.params;
-    const building = await Building.findById(id);
-
-    if (building == null) {
         res.status(400);
         return;
     }
 
-    const { name, address } = req.body;
+    res.json(building);
+})
+.get('/building/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const building = await Building.findById(id);
 
-    if (address) {
-        building.address = address;
+    if (building == null) {
+        res.status(404);
+        return;
     }
-    if (name) {
-        building.name = name;
-    }
-    await building.save();
 
-    res.status(204);
+    res.json(building);
+})
+.put('/building/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const building = await Building.findByIdAndUpdate(id, req.body);
+
+    if (building == null) {
+        res.status(404);
+        return;
+    }
+
+    res.json(building);
 })
 .delete('/building/:id', async (req, res, next) => {
     const { id } = req.params;
     const building = await Building.findByIdAndDelete(id);
+
+    if (building == null) {
+        res.status(404);
+        return;
+    }
 
     res.status(204);
 })

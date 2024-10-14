@@ -4,58 +4,62 @@ import { Order } from '../../model/order.js';
 export default Router()
 
 
+.post('/order', async (req, res, next) => {
+    let order;
+    try {
+        order = await Order.create(req.body);
+    }
+    catch (error) {
+        res.status(400);
+        return;
+    }
+
+    res.json(order);
+})
 .get('/order/:id', async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findById(id);
 
     if (order == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    res.json(order);
-})
-.post('/order', async (req, res, next) => {
-    try {
-        const order = await Order.create(req.body);
 
-        res.status(201);
-    }
-    catch (error) {
-        res.status(400);
-    }
+    res.json(order);
 })
 .put('/order/:id', async (req, res, next) => {
     const { id } = req.params;
-    const order = await Order.findById(id);
+    const order = await Order.findById(id); // ...
 
     if (order == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    const { name } = req.body;
 
-    order
+    const { name } = req.body;
     await order.save();
 
-    res.status(204);
+    res.json(order);
 })
 .patch('/order/:id', async (req, res, next) => {
     const { id } = req.params;
-    const order = await Order.findById(id);
+    const order = await Order.findById(id); // ...
 
     if (order == null) {
-        res.status(400);
+        res.status(404);
         return;
     }
-    const { name } = req.body;
 
-    await order.save();
-
-    res.status(204);
+    res.json(order);
 })
 .delete('/order/:id', async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findByIdAndDelete(id);
+
+    if (order == null) {
+        res.status(404);
+        return;
+    }
 
     res.status(204);
 })
