@@ -2,25 +2,30 @@ import { Schema, model } from 'mongoose';
 
 
 export const itemSchema = new Schema({
-    product: { 
-        type: Schema.Types.ObjectId, 
+	product: { 
+		type: Schema.Types.ObjectId, 
         ref: 'Product',
         required: true,
     },
     subproduct: {
-        type: Number,
+		type: Number,
         required: true,
     },
     quantity: { 
-        type: Number, 
+		type: Number, 
         min: 1,
         required: true,
     },
 });
 
 
+export interface ShoppingTaskType {
+	store: string
+	items: Array<Schema>,
+}
+
 export const shoppingTaskSchema = new Schema({
-    store: { 
+	store: { 
         type: Schema.Types.ObjectId, 
         ref: 'Store',
         required: true,

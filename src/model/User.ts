@@ -36,5 +36,5 @@ const UserSchema: Schema<IUser> = new Schema({
 });
 
 // Create and export the model based on the schema and interface.
-const User: Model<IUser> = mongoose.model<IUser>("User", UserSchema);
-export default User;
+const UserModel: Model<IUser> = mongoose.model<IUser>("User", UserSchema);
+export default UserModel;

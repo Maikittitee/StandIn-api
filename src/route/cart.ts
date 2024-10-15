@@ -1,23 +1,14 @@
 import express, { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import UserModel from "../model/User";
+import ShoppingCartModel from "../model/ShoppingCart";
 
 const router = express.Router();
 
-router.get('/cart', async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		const users = await UserModel.find();
-		res.json(users);
-	} catch (err) {
-		next(err);
-	}
-});
-
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const users = await UserModel.find();
-		res.json(users);
+		const cart = await ShoppingCartModel.find();
+		res.json(cart);
 	} catch (err) {
 		next(err);
 	}
@@ -25,8 +16,8 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const user = await UserModel.findById(req.params.id);
-		res.json(user);
+		const cart = await ShoppingCartModel.findById(req.params.id);
+		res.json(cart);
 	} catch (err) {
 		next(err);
 	}
@@ -34,8 +25,8 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const user = await UserModel.create(req.body);
-		res.json(user);
+		const cart = await ShoppingCartModel.create(req.body);
+		res.json(cart);
 	} catch (err) {
 		next(err);
 	}
@@ -43,9 +34,9 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		await UserModel.findByIdAndUpdate(req.params.id, req.body);
-		const user = await UserModel.findById(req.params.id); // Await added here
-		res.json(user);
+		await ShoppingCartModel.findByIdAndUpdate(req.params.id, req.body);
+		const cart = await ShoppingCartModel.findById(req.params.id); // Await added here
+		res.json(cart);
 	} catch (err) {
 		next(err);
 	}
@@ -53,8 +44,8 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const user = await UserModel.findByIdAndDelete(req.params.id);
-		res.json(user);
+		const cart = await ShoppingCartModel.findByIdAndDelete(req.params.id);
+		res.json(cart);
 	} catch (err) {
 		next(err);
 	}
