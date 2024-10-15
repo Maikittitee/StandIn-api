@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import UserModel from "../model/User";
+import UserModel from "../model/User.js";
 
 const router = express.Router();
 
