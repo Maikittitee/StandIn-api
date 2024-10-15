@@ -1,12 +1,21 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 
-export const addressSchema = new Schema({
+export interface IAddress extends Types.Subdocument {
+    country: string;
+    zipcode: string;
+    province: string;
+    district: string;
+    subdistrict: string;
+    detail: string;
+}
+export const addressSchema = new Schema<IAddress>({
     country: { 
         type: String, 
         default: 'Thailand',
+        required: true,
     },
-    postalcode: {
+    zipcode: {
         type: String,
         required: true,
     },
@@ -26,13 +35,14 @@ export const addressSchema = new Schema({
         type: String,
         required: true,
     },
+}, { 
+    _id: false 
 });
 
 
 const buildingSchema = new Schema({
     name: {
         type: String,
-        required: true,
     },
     address: {
         type: addressSchema,
@@ -41,7 +51,7 @@ const buildingSchema = new Schema({
 });
 
 
-export const storeSchema = new Schema({
+const storeSchema = new Schema({
     name: { 
         type: String, 
         required: true,
@@ -53,7 +63,8 @@ export const storeSchema = new Schema({
     },
 });
 
+
 // https://en.wikipedia.org/wiki/Thai_addressing_system
+
 export const Store = model('Store', storeSchema);
 export const Building = model('Building', buildingSchema);
-export default Building;
