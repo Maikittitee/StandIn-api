@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import ShoppingCartModel from "../model/ShoppingCart";
+import ShoppingCartModel from "../model/ShoppingCart.js";
 
 const router = express.Router();
 

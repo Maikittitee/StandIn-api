@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Order, OrderStatus } from '../model/order.js';
 import { TaskType } from '../model/task.js';
-import { Customer } from '../model/test_customer.js';
+// import { Customer } from '../model/test_customer.js';
 
 export default Router()
 
@@ -23,38 +23,38 @@ export default Router()
     res.json(ordersPop);
 })
 
-.get('/cart', async (req, res, next) => {
-    // @ts-expect-error
-    const user_id = res.session.user;
-    const customer = await Customer.findById(user_id);
+// .get('/cart', async (req, res, next) => {
+//     // @ts-expect-error
+//     const user_id = res.session.user;
+//     const customer = await Customer.findById(user_id);
 
-    if (customer == null) {
-        res.status(404);
-        return;
-    }
-    // @ts-expect-error
-    customer.cart.find({})?.populate('product');
-    const cartPop = customer.cart.map(async (item) => {
-        await item.populate('product')
-        return;
-    });
+//     if (customer == null) {
+//         res.status(404);
+//         return;
+//     }
+//     // @ts-expect-error
+//     customer.cart.find({})?.populate('product');
+//     const cartPop = customer.cart.map(async (item) => {
+//         await item.populate('product')
+//         return;
+//     });
 
-    res.json(cartPop);
-})
+//     res.json(cartPop);
+// })
 
-.post('/cart', async (req, res, next) => {
-    // @ts-expect-error
-    const customer_id = res.session.user;
-    const customer = await Customer.findById(customer_id);
+// .post('/cart', async (req, res, next) => {
+//     // @ts-expect-error
+//     const customer_id = res.session.user;
+//     const customer = await Customer.findById(customer_id);
 
-    if (customer == null) {
-        res.status(404);
-        return;
-    }
-    customer.cart.push(req.body);
-    customer.save();
-    res.json(customer.cart);
-})
+//     if (customer == null) {
+//         res.status(404);
+//         return;
+//     }
+//     customer.cart.push(req.body);
+//     customer.save();
+//     res.json(customer.cart);
+// })
 
 .post('/review', async (req, res, next) => {
     // @ts-expect-error

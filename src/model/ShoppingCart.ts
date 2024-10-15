@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { ShoppingTaskType } from "./shopping";
+import { ShoppingTaskType } from "./shopping.js";
 // Define an interface that represents a document in MongoDB.
 interface IShoppingCart extends Document {
   user: string;
